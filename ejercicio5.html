@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Información sobre el producto</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <h1>Información sobre el producto</h1>
+        <form method="post">
+            <fieldset>
+                <legend>Datos básicos</legend>
+                <p><label for="nombre">Nombre</label><br/>
+                    <input type="text" id="nombre" name="nombre" value="" /></p>
+                <p><label for="descripcion">Descripción</label><br/>
+                    <textarea name="descripcion" id="descripcion" cols="40" rows="3"></textarea></p>
+                <p>Foto <input type="file" accept="image/jpeg" name="foto" value="Seleccionar archivo" /></p>
+                <p><input type="checkbox" id="visitas" name="visitas" /><label for="visitas"> Añadir contador de visitas</label></p>
+            </fieldset>
+            <fieldset>
+                <legend>Datos económicos</legend>
+                <p><label for="precio">Precio </label><input type="text" id="precio" name="precio" value="" />€&nbsp;Impuestos
+                    <select name="impuestos" size="1">
+                        <option value="4%" selected>4%</option>
+                        <option value="8%">8%</option>
+                        <option value="10%">10%</option>
+                        <option value="18%">18%</option>
+                        <option value="21%">21%</option>
+                    </select>
+                </p>
+                <p>Promoción<br/>
+                    <input type="radio" id="ninguno" name="promo" value="ninguno"><label for="ninguno">Ninguno</label><br/>
+                    <input type="radio" id="transporte" name="promo" value="transporte"><label for="transporte">Transporte gratuito</label><br/>
+                    <input type="radio" id="descuento" name="promo" value="descuento"><label for="descuento">Descuento 5%</label></p>
+            </fieldset>
+        </form>
+    </body>
+</html>
