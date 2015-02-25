@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Ejercicio 3 - CSS</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="ejercicio3.css"/>
+    </head>
+    <body>
+        <h1>Formulario de alta</h1>
+        <form method="post">
+            <div>
+                <span class="titulo">Nombre y apellidos <em class="requerido">*</em></span>
+                <input type="text" id="nombre" name="nombre" value=""/>
+                <label for="nombre">Nombre</label>
+                <input type="text" id="apellido1" name="apellido1" value=""/>
+                <label for="apellido1">Primer apellido</label>
+                <input type="text" id="apellido2" name="apellido2" value=""/>
+                <label for="apellido2">Segundo apellido</label>
+
+                <span class="titulo">Email</span>
+                <input type="text" name="email" value=""/>
+            </div>
+
+            <div>
+                <span class="titulo">Dirección <em class="requerido">*</em></span>
+                <input type="text" id="direccion" name="direccion" value=""/>
+                <label for="direccion">Calle, número, piso, puerta</label>
+                <span class="corto">
+                    <input type="text" id="cpostal" name="cpostal" value=""/>
+                    <label for="cpostal">Código postal</label>
+                </span>
+                <input type="text" id="municipio" name="municipio" value=""/>
+                <label for="municipio">Municipio</label>
+                <select name="provincia" id="provincia" size="1">
+                    <option></option>
+                    <option value="Gipuzkoa">Gipuzkoa</option>
+                    <option value="Bizkaia">Bizkaia</option>
+                    <option value="Araba">Araba</option>
+                </select>
+                <label for="provincia">Provincia</label>
+                <select name="pais" id="pais" size="1">
+                    <option></option>
+                    <option value="spa">España</option>
+                    <option value="fra">Francia</option>
+                    <option value="ita">Italia</option>
+                </select>
+                <label for="pais">Provincia</label>
+
+                <span class="titulo">Teléfono <em class="requerido">*</em></span>
+                <input type="text" id="fijo" name="fijo" value=""/>
+                <label for="fijo">Fijo</label>
+                <input type="text" id="movil" name="movil" value=""/>
+                <label for="movil">Móvil</label>
+            </div>
+        </form>
+    </body>
+</html>
