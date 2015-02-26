@@ -1,0 +1,6 @@
+body {background-color: green;}
+body>div {overflow: hidden; margin: 25%; height: 25em; width: 50%; background-color: grey; position: absolute;}
+p {font-size: 0.8em; text-align: right;}
+div[id]:first-child {font-family: "Comic Sans"; font-size: 3em;}
+div[id]:first-child:first-letter {color: red; font-size: 3.5em;}
+img[src='.png'] {margin-top: 90%; margin-left: 90%; position: absolute;}

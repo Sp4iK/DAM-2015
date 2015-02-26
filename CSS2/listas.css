@@ -1,0 +1,4 @@
+ul:first-child {background-color: violet; color: #6e00e5;}
+h2+ul>li {background-color: #6e00e5; color: violet; margin: 10px;}
+div.horizontal ul, div.horizontal li {position: relative; display: inline;}
+div.puntosh>ul>li, div.puntosh>ul>li>ul>li {position: relative; display: inline;}

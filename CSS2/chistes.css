@@ -1,0 +1,8 @@
+body {background-color: orange;}
+h1 {text-align: center; color: white; font-family: Arial; letter-spacing: 1em;}
+h1+p {font-style: italic; text-align: right;}
+em {font-weight: bold;}
+div {align-content: center; margin: auto;  border: 1px;}
+.azul {border-color: blue; border-style: dotted; background-color: #1971ff}
+.amarillo {border-color: yellow; border-style: dashed; background-color: #e5d200}
+.violeta {border-color: violet; border-style: ; background-color: #6c00e0}
