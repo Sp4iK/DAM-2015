@@ -1,7 +1,31 @@
 body {background-color: grey;}
+
 h1 {text-align: center;}
-div {width: 35%; height: 6em; border: 3px solid;}
-.primero {background-color: brown; border: 1px solid brown; text-align: center; width: 80%;}
-.segundo {background-color: yellow; position: absolute;}
-.tercero {background-color: blue; position: absolute;}
-.cuarto {background-color: violet; position: absolute;}
+
+div {
+    width: 35%;
+    height: 6em;
+    border: 3px solid;
+}
+
+.primero {
+    background-color: brown;
+    border: 1px solid brown;
+    text-align: center;
+    width: 80%;
+}
+
+.segundo {
+    background-color: yellow;
+    position: absolute;
+}
+
+.tercero {
+    background-color: blue;
+    position: absolute;
+}
+
+.cuarto {
+    background-color: violet;
+    position: absolute;
+}
