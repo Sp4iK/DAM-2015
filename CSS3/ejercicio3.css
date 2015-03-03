@@ -1,0 +1,22 @@
+.offset, .offset div {margin: 50px;}
+
+.offset div {
+    width: 200px;
+    height: 75px;
+    background-color: lightgrey;
+    text-align: center;
+    display: inline-block;
+}
+
+.exampleboxshadowa {box-shadow: -10px -10px;}
+.exampleboxshadowb {box-shadow: -10px -10px 10px;}
+.exampleboxshadowc {box-shadow: -10px -10px 0 10px;}
+.exampleboxshadowd {box-shadow: -10px -10px 10px 10px;}
+.exampleboxshadowe {box-shadow: 0 0 2px 5px;}
+.exampleboxshadowf {box-shadow: 0 0 10px 10px;}
+.exampleboxshadowg {box-shadow: inset -10px -10px 0 5px;}
+.exampleboxshadowh {box-shadow: inset -10px -10px 5px 5px;}
+.exampleboxshadowi {box-shadow: inset -10px -10px;}
+.exampleboxshadowj {box-shadow: inset -10px -10px 10px 10px;}
+.exampleboxshadowk {box-shadow: inset 0px 0px 10px 0px;}
+.exampleboxshadowl {box-shadow: inset 0px 0px 10px 10px;}

@@ -1,0 +1,11 @@
+p {font-size: 2.5em; font-weight: bold; text-align: right;}
+
+/*.examplemultiplebackgroundsa {*/
+body {
+    width: 100%;
+    height: 768px;
+    background-image: url(decoration.png), url(ribbon.png), url(old_paper.jpg);
+    background-position: left top, right bottom, center bottom;
+    background-size: 33% 33%, 20% 60%, cover;
+    background-repeat: no-repeat;
+}
