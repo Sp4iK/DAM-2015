@@ -1,0 +1,55 @@
+body {
+    margin: 0px;
+}
+
+#container{
+    background: #666 url(tree.jpg) no-repeat -60px 0;
+    width: 420px;
+    height: 480px;
+    position: relative;
+}
+
+.snowflake {
+    top: -100px;
+    color: #fff;
+    font-size: 2em;
+    position: absolute;
+    -webkit-animation-duration: 5s, 0.5s;
+    -webkit-animation-timing-function: ease-out, ease-in-out;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-direction: normal, alternate;
+    -webkit-animation-name: bajar, menearse;
+}
+
+.snowflake.f1 {
+    left: 40px;
+    -webkit-animation-delay: 1s;
+}
+
+.snowflake.f2 {
+    font-size: 1.8em;
+    left: 120px;
+    -webkit-animation-delay: 2s;
+}
+
+.snowflake.f3 {
+    left: 200px;
+    -webkit-animation-delay: 1.5s;
+}
+
+.snowflake.f4 {
+    font-size: 1.5em;
+    left: 280px;
+    -webkit-animation-delay: 2.5s;
+}
+
+@-webkit-keyframes bajar {
+    from {top: 0; opacity: 1;}
+    60% {opacity: 1;}
+    to {top: 100%; opacity: 0;}
+}
+
+@-webkit-keyframes menearse {
+    from {transform: translateX(0);}
+    to {transform: translateX(25px);}
+}
