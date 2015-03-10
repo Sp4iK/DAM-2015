@@ -33,13 +33,13 @@ function muestraUrl() {
 
 function muestraContenido() {
     console.log(peticion_http.readyState);
-    document.getElementById("estados").innerHTML += estados[peticion_http.readyState] + "\n";
+    document.getElementById("estados").textContent += estados[peticion_http.readyState] + "\n";
 
     if (peticion_http.readyState == 4) {
         if (peticion_http.status == 200) {
-            document.getElementById("contenidos").innerHTML = peticion_http.responseText;
-            document.getElementById("cabeceras").innerHTML = peticion_http.getAllResponseHeaders;
-            document.getElementById("codigo").innerHTML = peticion_http.status + ": " + peticion_http.statusText;
+            document.getElementById("contenidos").textContent = peticion_http.responseText;
+            document.getElementById("cabeceras").textContent = peticion_http.getAllResponseHeaders;
+            document.getElementById("codigo").textContent = peticion_http.status + ": " + peticion_http.statusText;
         }
     }
 }
