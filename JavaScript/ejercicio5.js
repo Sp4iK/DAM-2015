@@ -4,15 +4,15 @@ var num_enlaces = 0;
 var num_enlaces_parrafo = document.getElementsByTagName("p")[2].getElementsByTagName("a").length;
 
 for (var i=0;i<enlaces.length;i++) {
-    if (enlaces[i].getAttribute("href") == "http://prueba") {
+    if (enlaces[i].getAttribute("href") == "http://prueba" || enlaces[i].href == "http://prueba/") {
         num_enlaces++;
     }
 }
 
-console.log(enlaces.length+" enlaces.");
+console.log(enlaces.length + " enlaces.");
 
-console.log("Penúltimo enlace: "+penultimo_enlace);
+console.log("Penúltimo enlace: " + penultimo_enlace);
 
-console.log(num_enlaces+" enlaces a 'http://prueba'");
+console.log(num_enlaces + " enlaces a 'http://prueba'");
 
-console.log(num_enlaces_parrafo+" enlaces en el último párrafo");
+console.log(num_enlaces_parrafo + " enlaces en el último párrafo");
