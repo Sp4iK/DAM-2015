@@ -1,47 +1,42 @@
-var READY_STATE_COMPLETE=4;
-var peticion_http = null;
+window.onload = function() {
+    console.log("cargado");
 
-function inicializa_xhr() {
-    console.log("inicializa_xhr");
-    if(window.XMLHttpRequest) {
-        return new XMLHttpRequest();
-    }
-    else if(window.ActiveXObject) {
-        return new ActiveXObject("Microsoft.XMLHTTP");
-    }
-}
+    var READY_STATE_COMPLETE = 4;
+    var peticion_http = null;
 
-//function crea_query_string() {
-//    var fecha = document.getElementById("fecha_nacimiento");
-//    var cp = document.getElementById("codigo_postal");
-//    var telefono = document.getElementById("telefono");
-//
-//    return "fecha_nacimiento=" + encodeURIComponent(fecha.value) +
-//        "&codigo_postal=" + encodeURIComponent(cp.value) +
-//        "&telefono=" + encodeURIComponent(telefono.value) +
-//        "&nocache=" + Math.random();
-//}
+    document.getElementById("comprobar").onclick = valida;
 
-function valida() {
-    console.log("valida");
-    peticion_http = inicializa_xhr();
+    function valida() {
+        console.log("valida");
 
-    if (peticion_http) {
-        peticion_http.onreadystatechange = procesaRespuesta;
-        peticion_http.open("POST", "http://localhost/compruebaDisponibilidad.php", true);
-        peticion_http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        var query_string = document.getElementById("login").value + "&nocache=" + Math.random();
-        peticion_http.send(query_string);
-    }
-}
+        peticion_http = inicializa_xhr();
 
-function procesaRespuesta() {
-    console.log("procesaRespuesta");
-    if (peticion_http.readyState == READY_STATE_COMPLETE) {
-        if (peticion_http.status == 200) {
-            document.getElementById("disponibilidad").textContent = peticion_http.responseText;
+        if (peticion_http) {
+            peticion_http.onreadystatechange = procesaRespuesta;
+            peticion_http.open("POST", "compruebaDisponibilidad.php", true);
+            peticion_http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            var query_string = document.getElementById("login").value + "&nocache=" + Math.random();
+            peticion_http.send(query_string);
         }
     }
-}
 
-document.getElementById("comprobar").onclick = valida;
+    function inicializa_xhr() {
+        console.log("inicializa_xhr");
+
+        if (window.XMLHttpRequest) {
+            return new XMLHttpRequest();
+        } else if (window.ActiveXObject) {
+            return new ActiveXObject("Microsoft.XMLHTTP");
+        }
+    }
+
+    function procesaRespuesta() {
+        console.log("procesaRespuesta: ReadyState="+peticion_http.readyState+" | Status="+peticion_http.status);
+
+        if (peticion_http.readyState == READY_STATE_COMPLETE) {
+            if (peticion_http.status == 200) {
+                document.getElementById("disponibilidad").textContent = "El nombre de usuario introducido " + peticion_http.responseText + " está disponible.";
+            }
+        }
+    }
+};
