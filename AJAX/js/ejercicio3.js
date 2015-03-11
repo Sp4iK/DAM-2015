@@ -13,7 +13,7 @@ window.onload = function() {
 
         if (peticion_http) {
             peticion_http.onreadystatechange = procesaRespuesta;
-            peticion_http.open("POST", "compruebaDisponibilidad.php", true);
+            peticion_http.open("POST", "php/compruebaDisponibilidad.php", true);
             peticion_http.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
             var query_string = document.getElementById("login").value + "&nocache=" + Math.random();
             peticion_http.send(query_string);
