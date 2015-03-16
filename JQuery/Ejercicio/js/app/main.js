@@ -10,6 +10,9 @@ $(document).ready(function(){
     var columnas = 0;
     var tiempo = 0;
     var animales = [];
+    var id;
+    var tipos = {dog: 'perro', cat: 'gato'};
+    var colores = {"red": 'rojo', "green": 'verde', "blue": 'azul', "yellow": 'amarillo', "purple": 'púrpura', "orange": 'naranja', "black": 'negro', "pink": 'rosa'};
 
     // Necesitaremos una funcion que cree objetos DOM de clase img y todos los atributos necesarios.
     // Necesitaremos una funcion que agrege el array de img al DOM (no se realizaran cambios de DOM dentro de ningun bucle).
@@ -18,38 +21,45 @@ $(document).ready(function(){
 
     // Necesitaremos añadir los eventos necesarios en el momento adecuado.
     $("#carga").on("click", function () {
-        console.log("has hecho click!");
         prepara();
     });
 
-    var control = function(){
+    var clicado = function() {
+        var tipo = tipos[$(this).data("tipo")];
+        var color = colores[$(this).data("color")];
+
+        $(this).addClass("hidden");
+        $("#eliminados").append($('<p/>', {html: Date() + ': ' + $(this).data("nombre") + ', el '+tipo+' '+color}));
+    };
+
+    var control = function() {
         var a = $("#contenedor img");
 
         for (var i=0;i<a.length;i++) {
             if ($(a[i]).data("tiempo") < tiempo) {
                 $(a[i]).addClass($(a[i]).data("color"));
+                $(a[i]).on("mouseup", clicado);
             }
-
-            tiempo++;
         }
+
+        tiempo++;
     };
 
     var callback = function cb(json) {
-        console.log("funcion callback");
-
         for (var animal in json) {
             animales.push($('<img/>', {
-//                'class': json[animal].color,
                 src: 'img/'+json[animal].animal+'.png',
                 width: 100/(json.length/filas)+'%',
                 'data-tiempo': json[animal].timer,
-                'data-color': json[animal].color
+                'data-color': json[animal].color,
+                'data-tipo': json[animal].animal,
+                'data-nombre': json[animal].nombre
             }));
         }
 
         $("#contenedor").append(animales);
 
-        var id = setInterval(control, 1000);
+        id = setInterval(control, 1000);
     };
 
     // Necesitaremos las funciones de callback para los eventos.
