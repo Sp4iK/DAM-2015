@@ -57,7 +57,7 @@ $(document).ready(function(){
             }));
         }
 
-        $("#contenedor").append(animales);
+        $("#contenedor").empty().append(animales);
 
         id = setInterval(control, 1000);
     };
