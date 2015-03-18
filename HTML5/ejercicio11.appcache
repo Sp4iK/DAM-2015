@@ -1,0 +1,13 @@
+CACHE MANIFEST
+# 18/03/2015:v1
+
+# Recursos que se cachearán
+CACHE:
+#media/imagenes/imagen1.jpg
+#media/imagenes/imagen2.jpg
+
+# Resources that require the user to be online.
+NETWORK:
+
+# Recursos de respaldo en caso de no poder cargar online.
+FALLBACK:
