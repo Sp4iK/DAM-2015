@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>JQuery Mobile</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+        <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+    </head>
+    <body>
+        <div data-role="page" id="page1">
+            <div data-role="header">
+                <p>Página 1 - <a href="#page2" data-transition="flip">Ir a la página 2</a></p>
+            </div>
+
+            <div data-role="main" class="ui-content">
+                <p class="orientation"></p>
+                <p class="scroll">Evento de 'scroll'.</p>
+                <p class="swipe">Evento de 'swipe'.</p>
+                <p class="tap">Evento de 'tap'.</p>
+                <p class="vclick">Evento de 'vclick'.</p>
+            </div>
+
+            <div data-role="footer">
+                <p class="pagestate"></p>
+            </div>
+        </div>
+
+        <div data-role="page" id="page2">
+            <div data-role="header">
+                <p>Página 2 - <a href="#page1" data-transition="fade">Ir a la página 1</a></p>
+            </div>
+
+            <div data-role="main" class="ui-content">
+                <p class="orientation"></p>
+                <p class="scroll">Evento de 'scroll'.</p>
+                <p class="swipe">Evento de 'swipe'.</p>
+                <p class="tap">Evento de 'tap'.</p>
+                <p class="vclick">Evento de 'vclick'.</p>
+            </div>
+
+            <div data-role="footer">
+                <p class="pagestate"></p>
+            </div>
+        </div>
+
+        <script src="js/eventos.js"></script>
+    </body>
+</html>
