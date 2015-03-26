@@ -12,3 +12,7 @@
 *.mp3
 *.wav
 *.ogg
+.cordova/
+hooks/
+platforms/
+plugins/
