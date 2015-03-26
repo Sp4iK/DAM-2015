@@ -30,20 +30,25 @@
         <title>Camera Test</title>
     </head>
     <body>
-        <div>
-            <h1>Camera Test</h1>
-            <div>
-                <input type="button" id="btnFoto" value="Sacar una foto">
-                <input type="button" id="btnVideo" value="Grabar un video">
-                <input type="button" id="btnBorrar" value="Limpiar">
-                <input type="button" id="btnGaleria" value="Galería">
+        <header>
+            <h1 class="center">Camera Test</h1>
+        </header>
 
-                <div>
-                    <img src="" id="myImage">
-                    <video src="" id="video" controls></video>
-                </div>
+
+        <div>
+            <div id="botones" class="center">
+                <input type="button" id="btnFoto" value="Foto" class="boton">
+                <input type="button" id="btnVideo" value="Video" class="boton">
+                <input type="button" id="btnGaleria" value="Galería" class="boton">
+                <input type="button" id="btnBorrar" value="Limpiar" class="boton">
+            </div>
+
+            <div id="media" class="center">
+                <img src="" id="imagen" class="hidden">
+                <video src="" id="video" controls class="hidden"></video>
             </div>
         </div>
+
         <script type="text/javascript" src="cordova.js"></script>
         <script type="text/javascript" src="js/index.js"></script>
     </body>
