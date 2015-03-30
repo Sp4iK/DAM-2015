@@ -12,6 +12,8 @@
 *.mp3
 *.wav
 *.ogg
+*.psd
+Thumbs.db
 .cordova/
 hooks/
 platforms/
