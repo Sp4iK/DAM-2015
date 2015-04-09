@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Test</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="textView1">Hola!</string>
+    <string name="button1">Clickame</string>
+    <string name="checkBox1">Check box</string>
+    <string name="radioButton1">Radio button 1</string>
+    <string name="radioButton2">Radio button 2</string>
+    <string name="radioButton3">Radio button 3</string>
+
+</resources>

@@ -1,0 +1,48 @@
+body {background-color: rgb(50, 50, 50)}
+
+header {width: 95%;
+        height: 22%;
+        border-color: #626262;
+        border-style: solid;
+        border-width: 10px;
+        background-color: #434343;
+        margin-bottom: 20px;
+}
+
+.hidden {
+    display: none;
+}
+
+.center {
+    width: 100%;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1 {text-align: center;
+    font-size: 200%;
+    color: #1b1b1b;
+    font-family: 'Myriad Pro';
+    margin: auto;
+}
+
+.boton {width: 15%;
+        height: 6%;
+        border-radius: 10px;
+        background-color: #324863;
+        color: #1b1b1b;
+        font: 8% 4.5% 'Myriad Pro';
+}
+
+#botones {margin-bottom: 20px}
+
+#media {width: 95%;
+        height: 60%;
+        margin-left: auto;
+        margin-right: auto;
+        border-color: #707070;
+        border-style: solid;
+        border-width: 5px;
+        background-color: #434343;
+}
