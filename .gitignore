@@ -18,3 +18,5 @@ Thumbs.db
 hooks/
 platforms/
 plugins/
+/Android/.metadata/
+/Android/RemoteSystemsTempFiles/
