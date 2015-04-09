@@ -1,4 +1,4 @@
-package com.dam.funciones;
+//package com.dam.funciones;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -60,7 +60,7 @@ public class EJ5_03 {
 
 		resultado = divisores(valor);
 
-		System.out.println("Los divisores primos de "+valor+" son: ");
+		System.out.println("Existen "+resultado.size()+" divisores primos de "+valor+" y son: ");
 
 		for (int i=0;i<resultado.size();i++) {
 			System.out.println(resultado.get(i));
