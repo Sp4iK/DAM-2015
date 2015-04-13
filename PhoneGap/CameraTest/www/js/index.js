@@ -1,21 +1,21 @@
 //document.DOMContentLoaded = function() {
-
-    var canvasWidth = window.innerWidth - 10;
-    var canvasHeight = window.innerHeight;
+//document.onDeviceReady = function() {
 
     var btnFoto = document.getElementById('btnFoto');
     var btnVideo = document.getElementById('btnVideo');
     var btnBorrar = document.getElementById('btnBorrar');
     var btnGaleria = document.getElementById('btnGaleria');
-    var image = document.getElementById('myImage');
+    var media = document.getElementById('media');
+    var imagen = document.getElementById('imagen');
     var video = document.getElementById('video');
+
+    var canvasWidth = media.width - 10;
+    var canvasHeight = media.height - 10;
 
     btnFoto.addEventListener('click', sacarFoto);
     btnVideo.addEventListener('click', grabarVideo);
-    btnBorrar.addEventListener('click', limpiarFoto);
     btnGaleria.addEventListener('click', galeria);
-
-//};
+    btnBorrar.addEventListener('click', limpiarFoto);
 
     function sacarFoto() {
         navigator.camera.getPicture(onSuccess, onFail, {quality: 75,
@@ -31,21 +31,24 @@
     }
 
     function galeria() {
-        navigator.camera.getPicture(onSuccess, onFail, {destinationType: Camera.DestinationType.DATA_URL,
+        navigator.camera.getPicture(onSuccess, onFail, {destinationType: Camera.DestinationType.FILE_URI,
                                                         sourceType: Camera.PictureSourceType.PHOTOLIBRARY,
-                                                        mediaType: Camera.MediaType.PICTURE});
+                                                        mediaType: Camera.MediaType.ALLMEDIA});
+        alert('media.width: '+media.width+'\nmedia.height: '+media.height+
+              '\ncanvasWidth: '+canvasWidth+'\ncanvasHeight: '+canvasHeight);
     }
 
-    function onSuccess(imageData) {
-        console.log(imageData);
-        image.src = imageData;
-//        image.src = "data:image/jpeg;base64," + imageData;
-        image.width = canvasWidth;
+    function onSuccess(data) {
+        console.log(data);
+        imagen.src = data;
+//        imagen.src = "data:image/jpeg;base64," + data;
+//        imagen.className = "";
+//        imagen.width = canvasWidth;
     }
 
     function captureSuccess(mediaFiles) {
         var mediaFileData = mediaFiles[0].getFormatData();
-        console.log(mediaFileData);
+        alert('mediaFiles: '+mediaFiles[0]+'\nmediaFileData: '+mediaFileData);
 
 //        alert("Nombre: "+mediaFiles[0].name+"\n"+
 //              "Tipo: "+mediaFiles[0].type+"\n"+
@@ -54,7 +57,9 @@
 
         video.src = "file:///storage/sdcard1/DCIM/Camera/"+mediaFiles[0].name;
 //        video.src = mediaFiles[0].fullPath;
-//        video.src = "data:video/mp4" + mediaFiles[0].fullPath;
+//        video.className = "";
+        alert("video.classList: "+video.classList+'\nvideo.className: '+video.className);
+//        video.width = canvasWidth;
     }
 
     function onFail(message) {
@@ -62,5 +67,8 @@
     }
 
     function limpiarFoto() {
-        image.src = "";
+        imagen.src = video.src = "";
+        imagen.className = video.className = "hidden";
     }
+
+//};
