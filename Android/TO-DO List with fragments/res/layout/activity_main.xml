@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.dam2015.todolistwithfragments.MainActivity" >
+
+	<fragment
+	    android:id="@+id/top_fragment"
+	    android:name="com.dam2015.todolistwithfragments.top_fragment"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    tools:layout="@layout/top_fragment" />
+
+    <fragment
+        android:id="@+id/list_fragment"
+        android:name="com.dam2015.todolistwithfragments.list_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:layout="@layout/list_fragment" />
+
+</LinearLayout>
