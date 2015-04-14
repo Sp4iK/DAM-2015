@@ -33,8 +33,8 @@ public final class R {
         public static final int buttonD=0x7f080006;
         public static final int buttonE=0x7f080007;
         public static final int buttonF=0x7f080008;
-        public static final int buttonG=0x7f08000a;
-        public static final int buttonH=0x7f080009;
+        public static final int buttonG=0x7f080009;
+        public static final int buttonH=0x7f08000a;
         public static final int buttonI=0x7f08000b;
         public static final int checkBox1=0x7f08000c;
         public static final int gridLayout1=0x7f080000;
