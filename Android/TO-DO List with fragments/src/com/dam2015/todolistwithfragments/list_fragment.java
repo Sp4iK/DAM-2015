@@ -1,6 +1,5 @@
 package com.dam2015.todolistwithfragments;
 
-import com.dam2015.todolistwithfragments.MainActivity.ListFragment;
 import java.util.ArrayList;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -10,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class list_fragment extends Fragment implements ListFragment {
+public class list_fragment extends Fragment {
 
 	ListView list;
 	static ArrayAdapter adapter;
@@ -33,7 +32,7 @@ public class list_fragment extends Fragment implements ListFragment {
 		list.setAdapter(adapter);
 	}
 
-	public void receiveItem (String text) {
+	public static void receiveItem (String text) {
 		aList.add(0, text);
 		adapter.notifyDataSetChanged();
 	}
