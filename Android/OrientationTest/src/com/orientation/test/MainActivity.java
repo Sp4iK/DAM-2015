@@ -1,12 +1,12 @@
 package com.orientation.test;
 
+import android.app.Activity;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends Activity {
 
 	private TextView txtViewPortrait;
 	private TextView txtViewLandscape;
