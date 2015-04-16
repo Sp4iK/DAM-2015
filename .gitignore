@@ -39,3 +39,7 @@ plugins/
 /Android/TO-DOList/gen/*
 /Android/Fragments/bin/*
 /Android/Fragments/gen/*
+/Android/Intents/bin/*
+/Android/Intents/gen/*
+/Android/Broadcasts/bin/*
+/Android/Broadcasts/gen/*
