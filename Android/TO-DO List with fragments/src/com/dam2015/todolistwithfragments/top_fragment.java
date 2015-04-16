@@ -1,6 +1,5 @@
 package com.dam2015.todolistwithfragments;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,23 +10,8 @@ import android.widget.TextView;
 
 public class top_fragment extends Fragment {
 
-	public interface addItemListener {
-		public void addItem (String item);
-	}
-
 	TextView textToAdd;
 	Button btnAdd;
-	private addItemListener listener;
-
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-
-		try {
-			listener = (addItemListener) activity;
-		} catch (ClassCastException e) {
-			System.out.println("Interfaz no implementada!");
-		}
-	}
 
 	// Called once the Fragment has been created in order for it to create its user interface.
 	@Override
@@ -55,7 +39,7 @@ public class top_fragment extends Fragment {
 
 				System.out.println("top_fragment - onClick | text: " + text);
 
-				listener.addItem(text);
+				MainActivity.addItem(text);
 			}
 		});
 	}

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Intents</string>
+    <string name="action_settings">Settings</string>
+    <string name="lblTitleMainAct">1st ACTIVITY</string>
+    <string name="btnToSecondAct">Go to 2nd activity</string>
+    <string name="lblTitleSecAct">2nd ACTIVITY</string>
+    <string name="btnOKSecAct">OK</string>
+
+</resources>
