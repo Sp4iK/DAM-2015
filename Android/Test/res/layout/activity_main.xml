@@ -18,6 +18,7 @@
     </GridLayout>
 
     <include
+        android:id="@+id/include1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/button1"
@@ -30,5 +31,14 @@
         android:layout_below="@+id/gridLayout1"
         android:layout_centerHorizontal="true"
         android:text="@string/button1" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/include1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:text="Descargar algo" />
 
 </RelativeLayout>

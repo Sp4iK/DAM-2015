@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class SecondActivity extends Activity {
 
@@ -16,17 +17,17 @@ public class SecondActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.second_activity);
 
+		final TextView txtDato = (TextView) this.findViewById(R.id.txtDato);
 		Button btnOK = (Button) this.findViewById(R.id.btnOKSecAct);
-
-		long valor = 1;
-
-		final Intent result = new Intent();
-		result.putExtra("result", valor);
 
 		btnOK.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
+				long valor = Long.parseLong(txtDato.getText().toString());
+
+				final Intent result = new Intent();
+				result.putExtra("result", valor);
 
 				setResult(RESULT_OK, result);
 				finish();

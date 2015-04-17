@@ -8,11 +8,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-	static final int SHOW_CARSELECT = 1;
-	long selectedCar;
+	static final int SECOND_ACTIVITY = 1;
+	long datoDevuelto;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +27,7 @@ public class MainActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				startActivityForResult(intent, SHOW_CARSELECT);
+				startActivityForResult(intent, SECOND_ACTIVITY);
 			}
 		});
 	}
@@ -36,12 +37,10 @@ public class MainActivity extends Activity {
 
 		super.onActivityResult(requestCode,	resultCode,	data);
 
-		System.out.println("requestCode: "+requestCode+" | resultCode: "+resultCode+" | data: "+data);
-
 		switch (requestCode) {
-			case (SHOW_CARSELECT):
-				if (resultCode == Activity.RESULT_OK) {selectedCar = data.getLongExtra("result", 0);}
-				System.out.println("selectedCar: "+selectedCar);
+			case (SECOND_ACTIVITY):
+				if (resultCode == Activity.RESULT_OK) {datoDevuelto = data.getLongExtra("result", 0);}
+				Toast.makeText(this, "Valor devuelto: "+datoDevuelto, Toast.LENGTH_LONG).show();
 				break;
 			default:
 				break;

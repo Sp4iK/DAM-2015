@@ -7,5 +7,6 @@
     <string name="btnToSecondAct">Go to 2nd activity</string>
     <string name="lblTitleSecAct">2nd ACTIVITY</string>
     <string name="btnOKSecAct">OK</string>
+    <string name="lblDato">Dato devuelto:</string>
 
 </resources>

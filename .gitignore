@@ -43,3 +43,5 @@ plugins/
 /Android/Intents/gen/*
 /Android/Broadcasts/bin/*
 /Android/Broadcasts/gen/*
+/Android/Persistence/bin/*
+/Android/Persistence/gen/*
