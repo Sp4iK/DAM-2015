@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends Activity {
+		
+	public static SharedPreferences sharedPrefs;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -19,10 +21,8 @@ public class MainActivity extends Activity {
 
 		final TextView txtDato = (TextView) this.findViewById(R.id.txtDatosMainAct);
 		Button btnGO = (Button) this.findViewById(R.id.btnGO);
-		Button btnPrefs = (Button) this.findViewById(R.id.btnPrefs);
 
 		final Intent intent = new Intent(this, SecondActivity.class);
-		final Intent prefsIntent = new Intent(this, PrefsActivity.class);
 
 		btnGO.setOnClickListener(new View.OnClickListener() {
 
@@ -30,7 +30,7 @@ public class MainActivity extends Activity {
 			public void onClick(View v) {
 				String dato = txtDato.getText().toString();
 
-				SharedPreferences sharedPrefs = getSharedPreferences("preferencias", Activity.MODE_PRIVATE);
+				sharedPrefs = getSharedPreferences("preferencias", Activity.MODE_PRIVATE);
 
 				SharedPreferences.Editor editor = sharedPrefs.edit();
 
@@ -38,14 +38,6 @@ public class MainActivity extends Activity {
 				editor.apply();
 
 				startActivity(intent);
-			}
-		});
-
-		btnPrefs.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				startActivityForResult(prefsIntent, 1);
 			}
 		});
 	}
@@ -65,6 +57,8 @@ public class MainActivity extends Activity {
 		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
+			Intent prefsIntent = new Intent(this, PrefsActivity.class);
+			startActivityForResult(prefsIntent, 1);
 			return true;
 		}
 		return super.onOptionsItemSelected(item);

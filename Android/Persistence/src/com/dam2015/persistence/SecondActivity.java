@@ -15,7 +15,9 @@ public class SecondActivity extends Activity {
 
 		TextView lblDatosSecAct = (TextView) this.findViewById(R.id.lblDatosSecAct);
 
-		//String datoRecuperado = sharedPrefs.getString("dato");
+		String datoRecuperado = MainActivity.sharedPrefs.getString("dato", null);
+		
+		lblDatosSecAct.setText(datoRecuperado);
 	}
 
 }

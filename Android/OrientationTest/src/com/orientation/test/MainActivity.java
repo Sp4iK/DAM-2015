@@ -28,29 +28,29 @@ public class MainActivity extends Activity {
 		} else {
 			dato = 0;
 		}
-		System.out.println("datoSalvado: " + dato);
+		System.out.println("Dato recuperado: " + dato);
 	}
 	
 	//	Called	after	onCreate	has	finished,	use	to	restore	UI	state
 	@Override	
 	public	void onRestoreInstanceState(Bundle	savedInstanceState)	{	
-		 super.onRestoreInstanceState(savedInstanceState);	
+		 super.onRestoreInstanceState(savedInstanceState);
 		 System.out.println("Llamada a 'onRestoreInstanceState'");
 		 if (savedInstanceState != null) {
 				dato = savedInstanceState.getInt("datoSalvado");
 			}
-		 System.out.println("datoSalvado: " + dato);
+		 System.out.println("Dato recuperado: " + dato);
 		 //	Restore	UI	state	from	the	savedInstanceState.	
 		 //	This	bundle	has	also	been	passed	to	onCreate.	
 	}
 	
 	//	Called	before	subsequent	visible	lifetimes for an Activity process.	
-	@Override	
+	@Override
 	public	void onRestart(){	
 		 super.onRestart();
 		 System.out.println("Llamada a 'onRestart'");
 		 //	Load	changes	knowing	that	the	Activity	has	already	
-		 //	been	visible	within	this	process.	
+		 //	been	visible	within	this	process.
 	}
 	
 	//	Called	at	the	start	of	the	visible	lifetime.
@@ -62,13 +62,13 @@ public class MainActivity extends Activity {
 		 //	the	Activity	is	visible.	
 	}
 	
-	//	Called	at	the	start	of	the	active	lifetime.
-	@Override	
+	//	Called	at	the	start	of	the	active	lifetime.	
+	@Override
 	public	void	onResume(){	
 		 super.onResume();	
 		 System.out.println("Llamada a 'onResume'");
 		 //	Resume	any	paused	UI	updates,	threads,	or	processes	required	
-		 //	by	the	Activity	but	suspended	when	it	was	inactive.	
+		 //	by	the	Activity	but	suspended	when	it	was	inactive.
 	}	
 	
 	//	Called	to	save	UI	state	changes	at the end of the active lifecycle.	
@@ -78,10 +78,10 @@ public class MainActivity extends Activity {
 		 //	This	bundle	will	be	passed	to	onCreate	and	
 		 //	onRestoreInstanceState	if	the	process	is	
 		 //	killed	and	restarted	by	the	run	time.	
-		 super.onSaveInstanceState(savedInstanceState);
 		 dato++;
 		 savedInstanceState.putInt("datoSalvado", dato);
-		 System.out.println("Llamada a 'onSaveInstanceState' | datoSalvado: " + dato);
+		 System.out.println("Llamada a 'onSaveInstanceState' | Dato salvado: " + dato);
+		 super.onSaveInstanceState(savedInstanceState);
 	}
 	
 	//	Called	at	the	end	of	the	active	lifetime.
