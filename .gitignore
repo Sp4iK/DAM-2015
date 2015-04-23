@@ -24,24 +24,7 @@ plugins/
 /Android/.recommenders/*
 /Android/appcompat_v7/
 /Android/appcompat_v7/*
-/Android/Ejercicios_Java/bin/*
-/Android/HelloWorld/
-/Android/HelloWorld/*
-/Android/Layouts/bin/*
-/Android/Layouts/gen/*
-/Android/OrientationTest/bin/*
-/Android/OrientationTest/gen/*
-/Android/Test/bin/*
-/Android/Test/gen/*
-/Android/TO-DO List with fragments/bin/*
-/Android/TO-DO List with fragments/gen/*
-/Android/TO-DOList/bin/*
-/Android/TO-DOList/gen/*
-/Android/Fragments/bin/*
-/Android/Fragments/gen/*
-/Android/Intents/bin/*
-/Android/Intents/gen/*
-/Android/Broadcasts/bin/*
-/Android/Broadcasts/gen/*
-/Android/Persistence/bin/*
-/Android/Persistence/gen/*
+/Android/*/bin/
+/Android/*/gen/
+/Android/*/bin/*
+/Android/*/gen/*
