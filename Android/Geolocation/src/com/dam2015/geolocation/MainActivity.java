@@ -6,6 +6,7 @@ import com.google.android.gms.maps.model.*;
 import android.support.v7.app.ActionBarActivity;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
@@ -51,7 +52,7 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
 		criteria.setSpeedRequired(false);
 		
 		String bestProvider = locationManager.getBestProvider(criteria, true);
-		final Location lastLocation = locationManager.getLastKnownLocation(bestProvider);
+		final Location lastLocation = locationManager.getLastKnownLocation(bestProvider);	
 		
 		// GMaps
 		final MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
@@ -62,17 +63,17 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
 			
 			@Override
 			public void onStatusChanged(String provider, int status, Bundle extras) {
-				Toast.makeText(getApplicationContext(), "onStatusChanged", Toast.LENGTH_LONG).show();
+				//Toast.makeText(getApplicationContext(), "onStatusChanged", Toast.LENGTH_LONG).show();
 			}
 			
 			@Override
 			public void onProviderEnabled(String provider) {
-				Toast.makeText(getApplicationContext(), "Proveedor activado", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "Proveedor GPS activado", Toast.LENGTH_LONG).show();
 			}
 			
 			@Override
 			public void onProviderDisabled(String provider) {
-				Toast.makeText(getApplicationContext(), "Proveedor desactivado", Toast.LENGTH_LONG).show();
+				Toast.makeText(getApplicationContext(), "Proveedor GPS desactivado", Toast.LENGTH_LONG).show();
 			}
 			
 			@Override
@@ -80,16 +81,20 @@ public class MainActivity extends ActionBarActivity implements OnMapReadyCallbac
 				Double lat = location.getLatitude();
 				Double lng = location.getLongitude();
 				
-				lblLastPos.setText("Última localización:\n");
-				lblLastPos.append("Latitud: "+lastLocation.getLatitude()+"\n");
-				lblLastPos.append("Longitud: "+lastLocation.getLongitude());
+				lblLastPos.setText("ÚLTIMA LOCALIZACIÓN:\n");
+				lblLastPos.append("\tLat: "+lastLocation.getLatitude()+" | ");
+				lblLastPos.append("Long: "+lastLocation.getLongitude());
 				
-				lblActualPos.setText("Localización actual:\n");
-				lblActualPos.append("Latitud: "+lat+"\n");
-				lblActualPos.append("Longitud: "+lng);
+				lblActualPos.setText("LOCALIZACIÓN ACTUAL:\n");
+				lblActualPos.append("\tLat: "+lat+" | ");
+				lblActualPos.append("Long: "+lng);
 				
 				LatLng loc = new LatLng(lat, lng);
+				//map.clear();
 				map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 13));
+				map.addMarker(new MarkerOptions().icon(BitmapDescriptorFactory.fromResource(android.R.drawable.ic_menu_mylocation)).position(loc).flat(true));
+				CameraPosition camPos = new CameraPosition.Builder().target(loc).build();
+				map.animateCamera(CameraUpdateFactory.newCameraPosition(camPos));
 			}
 		};
 		

@@ -21,41 +21,52 @@
         android:layout_height="wrap_content"
         android:text="Localización actual:" />
 
-    <EditText
-        android:id="@+id/txtLat"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="@android:color/darker_gray"
-        android:ems="10"
-        android:hint="@string/txtLat"
-        android:inputType="text" />
-
-    <EditText
-        android:id="@+id/txtLong"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="@android:color/darker_gray"
-        android:ems="10"
-        android:hint="@string/txtLong"
-        android:inputType="text" />
-
-    <EditText
-        android:id="@+id/txtRadio"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/darker_gray"
-        android:ems="10"
-        android:hint="@string/txtRadio"
-        android:inputType="numberDecimal" />
-
-    <Button
-        android:id="@+id/btnProximityAlert"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:text="@string/btnProximityAlert" />
+        android:orientation="vertical"
+        android:padding="5dp" >
+        
+	    <EditText
+	        android:id="@+id/txtLat"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="2dp"
+	        android:background="@android:color/darker_gray"
+	        android:ems="10"
+	        android:hint="@string/txtLat"
+	        android:inputType="text"
+	        android:paddingLeft="2dp" />
+	
+	    <EditText
+	        android:id="@+id/txtLong"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginBottom="2dp"
+	        android:background="@android:color/darker_gray"
+	        android:ems="10"
+	        android:hint="@string/txtLong"
+	        android:inputType="text"
+	        android:paddingLeft="2dp" />
+	
+	    <EditText
+	        android:id="@+id/txtRadio"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:background="@android:color/darker_gray"
+	        android:ems="10"
+	        android:hint="@string/txtRadio"
+	        android:inputType="numberDecimal"
+	        android:paddingLeft="2dp" />
+	
+	    <Button
+	        android:id="@+id/btnProximityAlert"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center_horizontal"
+	        android:text="@string/btnProximityAlert" />
+	    
+    </LinearLayout>
 
     <fragment
         android:id="@+id/map"

@@ -4,7 +4,7 @@
     <string name="app_name">Geolocation</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
-    <string name="btnProximityAlert">Alerta de proximidad</string>
+    <string name="btnProximityAlert">Fijar alerta de proximidad</string>
     <string name="txtLat">Latitud</string>
     <string name="txtLong">Longitud</string>
     <string name="txtRadio">Radio de alcance</string>
