@@ -3,6 +3,7 @@ package com.dam2015.dialogs;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
@@ -79,8 +80,11 @@ public class MainActivity extends Activity {
 	}
 	
 	private void loadFragDiag() {
-		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction().add(R.layout.frag_diag, new FragDiag()).commit();
+		//FragmentManager fragmentManager = getFragmentManager();
+		//fragmentManager.beginTransaction().add(R.id.layout_container, new FragDiag()).commit();
+		
+		DialogFragment dialogFragment = FragDiag.newInstance();
+		dialogFragment.show(getFragmentManager(), "fragment dialog");
 	}
 	
 }
