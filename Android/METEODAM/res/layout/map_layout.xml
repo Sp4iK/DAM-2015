@@ -4,5 +4,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
     
+	<fragment
+	    android:id="@+id/map"
+	    android:name="com.google.android.gms.maps.MapFragment"
+	    android:layout_width="match_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="1" />
 
+	<TextView
+	    android:id="@+id/lblMapTabTitle"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:gravity="center_horizontal"
+	    android:text="@string/lblMapTabTitle"
+	    android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	<TextView
+	    android:id="@+id/lblMapTabDetail"
+	    android:layout_width="match_parent"
+	    android:layout_height="0dp"
+	    android:layout_weight="1" />
+    
 </LinearLayout>

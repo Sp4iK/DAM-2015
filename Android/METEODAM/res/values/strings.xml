@@ -2,12 +2,13 @@
 <resources>
 
     <string name="app_name">METEODAM</string>
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="lblLocalization">Localización:</string>
     <string name="tabData">DATOS</string>
     <string name="tabMap">MAPA</string>
     <string name="btnOK">OK</string>
-    <string name="lblForecast">"Pronóstico para "</string>
+    <string name="lblForecastDate">&quot;Pronóstico para el &quot;</string>
+    <string name="lblMapTabTitle">"Pronóstico para "</string>
+    <string name="gmaps_api_key">AIzaSyAFs8uDv3m6XfigI_aP2obAuv9jnxxhztw</string>
 
 </resources>

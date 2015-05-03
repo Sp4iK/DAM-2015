@@ -1,16 +1,11 @@
 package com.dam2015.meteodam;
 
 import android.app.ActionBar;
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
 import android.app.ActionBar.Tab;
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
@@ -20,20 +15,6 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		
 		createTabs();
-		
-		FragmentManager fragmentManager = getFragmentManager();
-		fragmentManager.beginTransaction().add(R.id.detailFragContainer, new DetailFragment()).commit();
-		
-//		final TextView txtLocalization = (TextView) this.findViewById(R.id.txtLocalization);
-//		Button btnOK = (Button) this.findViewById(R.id.btnOK);
-//		
-//		btnOK.setOnClickListener(new View.OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				String loc = (String) txtLocalization.getText();
-//			}
-//		});
 	}
 	
 	private void createTabs() {

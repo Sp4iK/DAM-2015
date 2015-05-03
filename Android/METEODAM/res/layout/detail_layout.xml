@@ -5,15 +5,18 @@
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/lblForecast"
+        android:id="@+id/lblForecastDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/lblForecast"
+        android:layout_gravity="center_horizontal"
+        android:text="@string/lblForecastDate"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
         android:id="@+id/lblForecastDetails"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center_horizontal"
+        android:padding="10dp" />
 
 </LinearLayout>

@@ -38,9 +38,9 @@ public class TabListener<T extends Fragment> implements android.app.ActionBar.Ta
 	
 	//	Called	when	the	selected	tab	is	selected.	
 	public void onTabReselected (Tab tab, FragmentTransaction ft) {	
-		if (fragment != null) {
-			ft.attach(fragment);
-		}
+//		if (fragment != null) {
+//			ft.attach(fragment);
+//		}
 	}
 	
 }
