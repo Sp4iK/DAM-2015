@@ -13,9 +13,9 @@ public class TabListener<T extends Fragment> implements android.app.ActionBar.Ta
 	private	int	fragmentContainer;	
 
 	public TabListener(Activity activity, int fragmentContainer, Class<T> fragmentClass) {
-		this.activity	=	activity;	
-		this.fragmentContainer	=	fragmentContainer;	
-		this.fragmentClass	=	fragmentClass;	
+		this.activity = activity;	
+		this.fragmentContainer = fragmentContainer;	
+		this.fragmentClass = fragmentClass;	
 	}	
 
 	//	Called	when	a	new	tab	has	been	selected	

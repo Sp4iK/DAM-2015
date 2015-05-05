@@ -13,6 +13,7 @@ import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -38,6 +39,7 @@ public class tabMap extends Fragment implements OnMapReadyCallback {
 	TextView lblMapTabTitle;
 	TextView lblMapTabDetail;
 	
+	FragmentManager fragmentManager;
 	LocationManager locationManager;
 	Location lastLocation;
 	
@@ -70,10 +72,15 @@ public class tabMap extends Fragment implements OnMapReadyCallback {
 		
 		lblMapTabTitle = (TextView) vista.findViewById(R.id.lblMapTabTitle);
 		lblMapTabDetail = (TextView) vista.findViewById(R.id.lblMapTabDetail);
-		
+
 		//GMaps fragment
-		MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
+		MapFragment fragment = new MapFragment().newInstance();
+		fragmentManager = getChildFragmentManager();
+		fragmentManager.beginTransaction().add(R.id.mapFrame, fragment, "map_frag").commit();
+		
+		//System.out.println(getChildFragmentManager().findFragmentByTag("map_frag"));
+		//MapFragment mapFragment = (MapFragment) getChildFragmentManager().findFragmentByTag("map_frag");//(R.id.mapFrame);
+		fragment.getMapAsync(this);
 
 		return vista;
 	}
@@ -90,6 +97,7 @@ public class tabMap extends Fragment implements OnMapReadyCallback {
         
         getData(locality);
 
+        System.out.println("onMapReady - img="+img);
         map.addMarker(new MarkerOptions()
                 .title(locality)
                 //.icon(BitmapDescriptorFactory.fromBitmap(img))
@@ -143,9 +151,9 @@ public class tabMap extends Fragment implements OnMapReadyCallback {
 		protected void onPostExecute(Weather weather) {
 			super.onPostExecute(weather);
 			
-			if (weather.iconData != null && weather.iconData.length > 0) {
-				img = BitmapFactory.decodeByteArray(weather.iconData, 0, weather.iconData.length); 
-			}
+//			if (weather.iconData != null && weather.iconData.length > 0) {
+//				img = BitmapFactory.decodeByteArray(weather.iconData, 0, weather.iconData.length);
+//			}
 			
 			lblMapTabDetail.setText("Descripción: "+weather.currentCondition.getCondition()+"\n"+
 									  "Temperatura: "+weather.temperature.getTemp()+"ºC\n"+
@@ -156,6 +164,18 @@ public class tabMap extends Fragment implements OnMapReadyCallback {
 									  "Viento "+weather.wind.getSpeed()+"km/h\n"+
 									  "Precipitación: "+weather.rain.getAmmount()+"mm.");
 		}
+	}
+	
+	@Override
+	public void onDestroy() {
+		Fragment fragment = getActivity().getFragmentManager().findFragmentById(R.id.mapFrame);
+		System.out.println("onDestroy - fragment="+fragment);
+		
+		if (fragment.isResumed()) {
+			getActivity().getFragmentManager().beginTransaction().remove(fragment).commit();
+		}
+		
+		super.onDestroy();
 	}
 	
 }

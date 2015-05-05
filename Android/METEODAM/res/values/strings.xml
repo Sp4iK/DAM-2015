@@ -10,5 +10,9 @@
     <string name="lblForecastDate">&quot;Pronóstico para el &quot;</string>
     <string name="lblMapTabTitle">"Pronóstico para "</string>
     <string name="gmaps_api_key">AIzaSyAFs8uDv3m6XfigI_aP2obAuv9jnxxhztw</string>
+    <string name="lblUpdatesToggle">Actualizaciones</string>
+    <string name="switchUpdates">Actualizaciones</string>
+    <string name="txtInterval">Intervalo de tiempo (minutos)</string>
+    <string name="btnPrefsOK">OK</string>
 
 </resources>

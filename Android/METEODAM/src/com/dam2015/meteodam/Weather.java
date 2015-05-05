@@ -11,6 +11,9 @@
  */
 package com.dam2015.meteodam;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+
 /*
  * Copyright (C) 2013 Surviving with Android (http://www.survivingwithandroid.com)
  *
@@ -30,23 +33,29 @@ public class Weather {
 	
 	public Location location;
 	public CurrentCondition currentCondition = new CurrentCondition();
+	//public CurrentCondition[] currentCondition;
 	public Temperature temperature = new Temperature();
 	public Wind wind = new Wind();
 	public Rain rain = new Rain();
-	public Snow snow = new Snow()	;
+	public Snow snow = new Snow();
 	public Clouds clouds = new Clouds();
 	
-	public byte[] iconData;
+	//public byte[] iconData;
+	public Bitmap iconData;
 	
-	public  class CurrentCondition {
+	public class CurrentCondition {
 		private int weatherId;
 		private String condition;
 		private String descr;
 		private String icon;
-		
-		
 		private float pressure;
 		private float humidity;
+		
+//		public CurrentCondition(int days) {
+//			for (int i=0;i<days;i++) {
+//				currentCondition[i] = new CurrentCondition(i);
+//			}
+//		}
 		
 		public int getWeatherId() {
 			return weatherId;

@@ -87,6 +87,7 @@ public class tabData extends Fragment {
 
 		@Override
 		protected String doInBackground(String... params) {
+
 			Weather weather = new Weather();
 			String data = ((new WeatherHttpClient()).getWeatherData(params[0]));
 
