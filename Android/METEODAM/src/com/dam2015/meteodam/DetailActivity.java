@@ -1,63 +1,51 @@
 package com.dam2015.meteodam;
 
 import java.util.Calendar;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.format.DateFormat;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class DetailActivity extends Activity {
+	Weather weather;
+	
 	TextView lblForecastDate, lblForecastDetails;
+	ImageView imgForecastIcon;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.detail_layout);
+	
+		int day = getIntent().getIntExtra("day_num", 0);
+		weather = tabData.weather;
 		
-		String datos = getIntent().getStringExtra("datos");
 		lblForecastDate = (TextView) this.findViewById(R.id.lblForecastDate);
 		lblForecastDetails = (TextView) this.findViewById(R.id.lblForecastDetails);
+		imgForecastIcon = (ImageView) this.findViewById(R.id.imgForecastIcon);
 		
-		parsearDatos(datos);
+		parsearDatos(day);
 	}
 	
-	private void parsearDatos(String datos) {
-		JSONObject jObj;
+	private void parsearDatos(int day) {
 		String fecha;
-		String precipitacion;
-		
-		try {
-			jObj = new JSONObject(datos);
-			JSONArray jArrWeather = jObj.getJSONArray("weather");
-			JSONObject jObjWeather = jArrWeather.getJSONObject(0);
-			JSONObject jObjTemp = jObj.getJSONObject("temp");
-			
-			fecha = getDate(Long.parseLong(jObj.getString("dt")));
-			lblForecastDate.append(fecha);
-			
-			try {
-				precipitacion = jObj.getString("rain");
-			} catch (JSONException e) {
-				precipitacion = "0";
-			}
-			
-			lblForecastDetails.setText("Descripción: "+jObjWeather.getString("description")+"\n"+
-									  "Temperatura: "+jObjTemp.getString("day")+"ºC\n"+
-									  "\tMínima: "+jObjTemp.getString("min")+"ºC\n"+
-									  "\tMáxima: "+jObjTemp.getString("max")+"ºC\n"+
-									  "Humedad: "+jObj.getString("humidity")+"%\n"+
-									  "Presión: "+jObj.getString("pressure")+"mBar\n"+
-									  "Viento "+jObj.getString("speed")+"km/h\n"+
-									  "Precipitación: "+precipitacion+"mm.");
-			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+
+		fecha = getDate(weather.dailyWeather[day].getDate());
+		lblForecastDate.append(fecha);
+
+		lblForecastDetails.setText("Descripción: "+weather.dailyWeather[day].getCondition()+"\n"+
+				"Temperatura: "+weather.dailyWeather[day].temperature.getTemp()+"ºC\n"+
+				"\tMínima: "+weather.dailyWeather[day].temperature.getMinTemp()+"ºC\n"+
+				"\tMáxima: "+weather.dailyWeather[day].temperature.getMaxTemp()+"ºC\n"+
+				"Humedad: "+weather.dailyWeather[day].getHumidity()+"%\n"+
+				"Presión: "+weather.dailyWeather[day].getPressure()+"mBar\n"+
+				"Viento "+weather.dailyWeather[day].wind.getSpeed()+"km/h\n"+
+				"Precipitación: "+weather.dailyWeather[day].rain.getAmmount()+"mm.");
+
+		imgForecastIcon.setImageBitmap((weather.dailyWeather[day].iconData).copy(Bitmap.Config.ARGB_8888, true));
+
 	}
 	
 	private String getDate(long time) {
