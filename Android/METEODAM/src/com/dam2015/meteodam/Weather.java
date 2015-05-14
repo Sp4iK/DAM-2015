@@ -1,21 +1,6 @@
-/**
- * This is a tutorial source code 
- * provided "as is" and without warranties.
- *
- * For any question please visit the web site
- * http://www.survivingwithandroid.com
- *
- * or write an email to
- * survivingwithandroid@gmail.com
- *
- */
-package com.dam2015.meteodam;
-
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-
 /*
- * Copyright (C) 2013 Surviving with Android (http://www.survivingwithandroid.com)
+ * Based on sample code from Surviving with Android (http://www.survivingwithandroid.com)
+ * Modified to fit app properties
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,21 +14,31 @@ import android.graphics.drawable.Drawable;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.dam2015.meteodam;
+
+import android.graphics.Bitmap;
+
 public class Weather {
 	
 	public Location location;
-	public CurrentCondition currentCondition = new CurrentCondition();
-	//public CurrentCondition[] currentCondition;
-	public Temperature temperature = new Temperature();
-	public Wind wind = new Wind();
-	public Rain rain = new Rain();
-	public Snow snow = new Snow();
-	public Clouds clouds = new Clouds();
+	public DailyWeather[] dailyWeather = new DailyWeather[7];
+		
+	public Weather(int days) {
+		for(int i=0;i<days;i++) {
+			this.dailyWeather[i] = new DailyWeather();
+		}
+	}
 	
-	//public byte[] iconData;
-	public Bitmap iconData;
-	
-	public class CurrentCondition {
+	public class DailyWeather {
+		public Temperature temperature = new Temperature();
+		public Wind wind = new Wind();
+		public Rain rain = new Rain();
+		public Snow snow = new Snow();
+		public Clouds clouds = new Clouds();
+		
+		public Bitmap iconData;
+		
+		private long date;
 		private int weatherId;
 		private String condition;
 		private String descr;
@@ -51,12 +46,12 @@ public class Weather {
 		private float pressure;
 		private float humidity;
 		
-//		public CurrentCondition(int days) {
-//			for (int i=0;i<days;i++) {
-//				currentCondition[i] = new CurrentCondition(i);
-//			}
-//		}
-		
+		public long getDate() {
+			return date;
+		}
+		public void setDate(long date) {
+			this.date = date;
+		}
 		public int getWeatherId() {
 			return weatherId;
 		}
@@ -93,8 +88,6 @@ public class Weather {
 		public void setHumidity(float humidity) {
 			this.humidity = humidity;
 		}
-		
-		
 	}
 	
 	public  class Temperature {
@@ -120,12 +113,12 @@ public class Weather {
 		public void setMaxTemp(float maxTemp) {
 			this.maxTemp = maxTemp;
 		}
-		
 	}
 	
 	public  class Wind {
 		private float speed;
 		private float deg;
+		
 		public float getSpeed() {
 			return speed;
 		}
@@ -138,13 +131,12 @@ public class Weather {
 		public void setDeg(float deg) {
 			this.deg = deg;
 		}
-		
-		
 	}
 	
 	public  class Rain {
 		private String time;
 		private float ammount;
+		
 		public String getTime() {
 			return time;
 		}
@@ -157,9 +149,6 @@ public class Weather {
 		public void setAmmount(float ammount) {
 			this.ammount = ammount;
 		}
-		
-		
-		
 	}
 
 	public  class Snow {
@@ -178,8 +167,6 @@ public class Weather {
 		public void setAmmount(float ammount) {
 			this.ammount = ammount;
 		}
-		
-		
 	}
 	
 	public  class Clouds {
@@ -188,12 +175,9 @@ public class Weather {
 		public int getPerc() {
 			return perc;
 		}
-
 		public void setPerc(int perc) {
 			this.perc = perc;
 		}
-		
-		
 	}
 
 }
