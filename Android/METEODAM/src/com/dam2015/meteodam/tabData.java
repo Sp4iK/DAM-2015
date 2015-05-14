@@ -2,14 +2,11 @@ package com.dam2015.meteodam;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.text.format.DateFormat;
@@ -17,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,7 +23,7 @@ public class tabData extends Fragment {
 	private View vista;
 	private Context contexto;
 	
-	JSONArray lista;
+	static Weather weather;
 	
 	TextView txtLocalization;
 	ListView list;
@@ -57,12 +53,8 @@ public class tabData extends Fragment {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent intent = new Intent(contexto, DetailActivity.class);
-				try {
-					intent.putExtra("datos", (lista.getJSONObject(position)).toString());
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				intent.putExtra("day_num", position);
+				
 				startActivity(intent);
 			}
 			
@@ -83,68 +75,60 @@ public class tabData extends Fragment {
 		return date;
 	}
 	
-	private class JSONWeatherTask extends AsyncTask<String, Void, String> {
+	private class JSONWeatherTask extends AsyncTask<String, Void, Weather> {
 
 		@Override
-		protected String doInBackground(String... params) {
-
-			Weather weather = new Weather();
+		protected Weather doInBackground(String... params) {
 			String data = ((new WeatherHttpClient()).getWeatherData(params[0]));
 
 			try {
 				weather = JSONWeatherParser.getWeather(data);
 
 				// Let's retrieve the icon
-				weather.iconData = ( (new WeatherHttpClient()).getImage(weather.currentCondition.getIcon()));
+				if(weather.location.getReturnCode() != 404 && weather != null) {
+					for(int i=0;i<weather.dailyWeather.length;i++) {
+						weather.dailyWeather[i].iconData = ((new WeatherHttpClient()).getImage(weather.dailyWeather[i].getIcon()));
+					}
+				}
+
+				return weather;
 
 			} catch (JSONException e) {				
 				e.printStackTrace();
 			}
-//			return weather;
-			return data;
+			
+			return null;
 		}
 		
-		protected void onPostExecute(String data) {
-			JSONObject jObj;
-			
-			ArrayList<String> aList = new ArrayList<String>();
-			ArrayAdapter<String> adapter =  new ArrayAdapter<String>(contexto, android.R.layout.simple_list_item_1, aList);
-			list.setAdapter(adapter);
-			
-			try {
-				jObj = new JSONObject(data);
-				String codigo = jObj.getString("cod");
-				String res;
-				String fecha;
+		@Override
+		protected void onPostExecute(Weather weather) {
+
+			if(weather != null) {
+				ArrayList<ForecastItem> arrayList = new ArrayList<ForecastItem>();
+				ForecastItemAdapter adapter = new ForecastItemAdapter(contexto, arrayList);
+				list.setAdapter(adapter);
 				
-				if(codigo.equals("200")) {
-					Integer previsiones = jObj.getInt("cnt");
-					lista = jObj.getJSONArray("list");
-				
-					for(int i=0; i<previsiones; i++) {
-						res = "";
-						
-						fecha = lista.getJSONObject(i).getString("dt");
-						res = getDate(Long.parseLong(fecha));
-						res += " | ";
-						
-						JSONObject jo = lista.getJSONObject(i);
-						JSONArray ja = jo.getJSONArray("weather");
-						JSONObject jo_in = ja.getJSONObject(0);
-						
-						res += jo_in.getString("description");
-						
-						aList.add(i, res);
-					}
+				int codigo = weather.location.getReturnCode();
+	
+				if(codigo == 200) {
 					
+					for(int i=0; i<weather.dailyWeather.length; i++) {			
+						Bitmap icon = weather.dailyWeather[i].iconData;
+						String description = weather.dailyWeather[i].getDescr();
+						String date = getDate(weather.dailyWeather[i].getDate());
+						String temperature = String.valueOf(Math.round(weather.dailyWeather[i].temperature.getTemp()));
+						
+						arrayList.add(new ForecastItem(icon, description, date, temperature));
+					}
+	
 					adapter.notifyDataSetChanged();
 				} else {
-					Toast.makeText(contexto, "Ciudad erronea!", Toast.LENGTH_LONG).show();
+					Toast.makeText(contexto, "¡Ciudad erronea!", Toast.LENGTH_LONG).show();
 					txtLocalization.setText("");
 				}
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			} else {
+				Toast.makeText(contexto, "Error de conexión: No se ha podido establecer la conexión con el servidor.", Toast.LENGTH_LONG).show();
+				txtLocalization.setText("");
 			}
 		}
 	}
