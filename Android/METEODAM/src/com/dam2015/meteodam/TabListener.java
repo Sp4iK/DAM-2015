@@ -18,7 +18,7 @@ public class TabListener<T extends Fragment> implements android.app.ActionBar.Ta
 		this.fragmentClass = fragmentClass;	
 	}	
 
-	//	Called	when	a	new	tab	has	been	selected	
+	// Called when a new tab has been selected	
 	public void onTabSelected(Tab tab, FragmentTransaction ft) {
 		if (fragment == null) {	
 			String fragmentName = fragmentClass.getName();	
@@ -29,14 +29,14 @@ public class TabListener<T extends Fragment> implements android.app.ActionBar.Ta
 		}
 	}
 	
-	//	Called	on	the	currently	selected tab when a different tag is selected.
+	// Called on the currently selected tab when a different tag is selected.
 	public void onTabUnselected (Tab tab, FragmentTransaction ft) {
 		if (fragment != null) {
 			ft.detach(fragment);
 		}
 	}
 	
-	//	Called	when	the	selected	tab	is	selected.	
+	// Called when the selected tab is selected.	
 	public void onTabReselected (Tab tab, FragmentTransaction ft) {	
 //		if (fragment != null) {
 //			ft.attach(fragment);
