@@ -1,25 +1,6 @@
-/**
- * This is a tutorial source code 
- * provided "as is" and without warranties.
- *
- * For any question please visit the web site
- * http://www.survivingwithandroid.com
- *
- * or write an email to
- * survivingwithandroid@gmail.com
- *
- */
-package com.dam2015.meteodam;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import com.dam2015.meteodam.Location;
-import com.dam2015.meteodam.Weather;
-
 /*
- * Copyright (C) 2013 Surviving with Android (http://www.survivingwithandroid.com)
+ * Based on sample code from Surviving with Android (http://www.survivingwithandroid.com)
+ * Modified to fit app properties
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -33,67 +14,102 @@ import com.dam2015.meteodam.Weather;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package com.dam2015.meteodam;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.dam2015.meteodam.Location;
+import com.dam2015.meteodam.Weather;
+
 public class JSONWeatherParser {
 
 	public static Weather getWeather(String data) throws JSONException  {
-		Weather weather = new Weather();
 
-		// We create out JSONObject from the data
-		JSONObject jObj = new JSONObject(data);
+		try {
+			// We create out JSONObject from the data
+			JSONObject jObj = new JSONObject(data);
+			
+			// and check if data is valid
+			if(getInt("cod", jObj) != 404) {
+				
+				// Now we get the number of forecasting days
+				int days = getInt("cnt", jObj);
+				
+				// and create the Weather object
+				Weather weather = new Weather(days);
+				
+				// We start extracting the info
+				Location loc = new Location();
+				
+				loc.setReturnCode(getInt("cod", jObj));
+				JSONObject cityObj = getObject("city", jObj);
+				loc.setCountry(getString("country", cityObj));
+				//loc.setSunrise(getInt("sunrise", cityObj));
+				//loc.setSunset(getInt("sunset", cityObj));
+				loc.setCity(getString("name", cityObj));
+				
+				JSONObject coordObj = getObject("coord", cityObj);
+				loc.setLatitude(getFloat("lat", coordObj));
+				loc.setLongitude(getFloat("lon", coordObj));
+				
+				weather.location = loc;
+				
+				// Get the each day's data from the array
+				JSONArray jArrDays = jObj.getJSONArray("list");
+				
+				for(int i=0;i<jArrDays.length();i++) {
+					// Get the weather info (array) and use only the first value
+					JSONObject jObjDay = jArrDays.getJSONObject(i);
+
+					// We get weather info (This is an array)
+					JSONArray jArr = jObjDay.getJSONArray("weather");
+
+					// We use only the first value
+					JSONObject JSONWeather = jArr.getJSONObject(0);
+
+					weather.dailyWeather[i].setDate(getInt("dt", jObjDay));
+					weather.dailyWeather[i].setWeatherId(getInt("id", JSONWeather));
+					weather.dailyWeather[i].setDescr(getString("description", JSONWeather));
+					weather.dailyWeather[i].setCondition(getString("main", JSONWeather));
+					weather.dailyWeather[i].setIcon(getString("icon", JSONWeather));
+					weather.dailyWeather[i].setHumidity(getInt("humidity", jObjDay));
+					weather.dailyWeather[i].setPressure(getInt("pressure", jObjDay));
+
+					JSONObject tObj = jObjDay.getJSONObject("temp");
+					weather.dailyWeather[i].temperature.setMaxTemp(getFloat("max", tObj));
+					weather.dailyWeather[i].temperature.setMinTemp(getFloat("min", tObj));
+					weather.dailyWeather[i].temperature.setTemp(getFloat("day", tObj));
+
+					// Wind
+					weather.dailyWeather[i].wind.setSpeed(getFloat("speed", jObjDay));
+					weather.dailyWeather[i].wind.setDeg(getFloat("deg", jObjDay));
+
+					// Clouds
+					weather.dailyWeather[i].clouds.setPerc(getInt("clouds", jObjDay));
+
+					// Rain (this is variable, can be or cannot)
+					weather.dailyWeather[i].rain.setAmmount(getFloat("rain", jObjDay));
+				}
+				
+				return weather;
+				
+			} else {
+				System.out.println("JSONWeatherParser->getWeather: cod404");
+				Weather weather = new Weather(0);
+				Location loc = new Location();
+				loc.setReturnCode(getInt("cod", jObj));
+				weather.location = loc;
+
+				return weather;
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
-		// We start extracting the info
-		Location loc = new Location();
-		
-		loc.setReturnCode(getInt("cod", jObj));
-		JSONObject cityObj = getObject("city", jObj);
-		loc.setCountry(getString("country", cityObj));
-		//loc.setSunrise(getInt("sunrise", cityObj));
-		//loc.setSunset(getInt("sunset", cityObj));
-		loc.setCity(getString("name", cityObj));
-		
-		JSONObject coordObj = getObject("coord", cityObj);
-		loc.setLatitude(getFloat("lat", coordObj));
-		loc.setLongitude(getFloat("lon", coordObj));
-		
-		weather.location = loc;
-		
-		// Get the first day from the array
-		JSONArray jArrDays = jObj.getJSONArray("list");
-		JSONObject jObjDay = jArrDays.getJSONObject(0);
-		
-		// We get weather info (This is an array)
-		JSONArray jArr = jObjDay.getJSONArray("weather");
-		
-		// We use only the first value
-		JSONObject JSONWeather = jArr.getJSONObject(0);
-		weather.currentCondition.setWeatherId(getInt("id", JSONWeather));
-		weather.currentCondition.setDescr(getString("description", JSONWeather));
-		weather.currentCondition.setCondition(getString("main", JSONWeather));
-		weather.currentCondition.setIcon(getString("icon", JSONWeather));
-		
-		weather.currentCondition.setHumidity(getInt("humidity", jObjDay));
-		weather.currentCondition.setPressure(getInt("pressure", jObjDay));
-		
-		JSONObject tObj = jObjDay.getJSONObject("temp");
-		weather.temperature.setMaxTemp(getFloat("max", tObj));
-		weather.temperature.setMinTemp(getFloat("min", tObj));
-		weather.temperature.setTemp(getFloat("day", tObj));
-		
-		// Wind
-		//JSONObject wObj = getObject("wind", jObj);
-		weather.wind.setSpeed(getFloat("speed", jObjDay));
-		weather.wind.setDeg(getFloat("deg", jObjDay));
-		
-		// Clouds
-		//JSONObject cObj = getObject("clouds", jObj);
-		weather.clouds.setPerc(getInt("clouds", jObjDay));
-		
-		// Rain
-		weather.rain.setAmmount(getFloat("rain", jObjDay));
-		
-		// We download the icon to show
-		
-		return weather;
+		return null;
 	}
 	
 	
@@ -106,11 +122,15 @@ public class JSONWeatherParser {
 		return jObj.getString(tagName);
 	}
 
-	private static float  getFloat(String tagName, JSONObject jObj) throws JSONException {
-		return (float) jObj.getDouble(tagName);
+	private static float getFloat(String tagName, JSONObject jObj) throws JSONException {
+		try {
+			return (float) jObj.getDouble(tagName);
+		} catch (Exception e) {}
+		
+		return 0;
 	}
 	
-	private static int  getInt(String tagName, JSONObject jObj) throws JSONException {
+	private static int getInt(String tagName, JSONObject jObj) throws JSONException {
 		return jObj.getInt(tagName);
 	}
 	
