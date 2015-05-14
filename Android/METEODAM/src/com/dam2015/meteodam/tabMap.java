@@ -1,13 +1,10 @@
 package com.dam2015.meteodam;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.google.android.gms.maps.*;
 import com.google.android.gms.maps.model.*;
@@ -15,8 +12,6 @@ import com.google.android.gms.maps.model.*;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Address;
 import android.location.Criteria;
 import android.location.Geocoder;
@@ -27,7 +22,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,14 +34,19 @@ public class tabMap extends Fragment implements OnMapReadyCallback {
 	TextView lblMapTabDetail;
 	
 	FragmentManager fragmentManager;
+	MapFragment fragment;
 	LocationManager locationManager;
 	Location lastLocation;
 	
-	Bitmap img;
+	GoogleMap googleMap;
+	
+	String locality;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		contexto = getActivity().getApplicationContext();
 		
 		//GPS location
 		locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -62,19 +61,23 @@ public class tabMap extends Fragment implements OnMapReadyCallback {
 		//lastLocation = locationManager.getLastKnownLocation(bestProvider);
 		//lastLocation = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 		lastLocation = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+		
+        locality = reverseGeocode(lastLocation);
+        getData(locality);	
 	}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
 		vista = inflater.inflate(R.layout.map_layout, container, false);
-		contexto = getActivity().getApplicationContext();
 		
 		lblMapTabTitle = (TextView) vista.findViewById(R.id.lblMapTabTitle);
 		lblMapTabDetail = (TextView) vista.findViewById(R.id.lblMapTabDetail);
+		
+		lblMapTabTitle.append(locality);
 
 		//GMaps fragment
-		MapFragment fragment = new MapFragment().newInstance();
+		fragment = new MapFragment().newInstance();
 		fragmentManager = getChildFragmentManager();
 		fragmentManager.beginTransaction().add(R.id.mapFrame, fragment, "map_frag").commit();
 		
@@ -87,22 +90,11 @@ public class tabMap extends Fragment implements OnMapReadyCallback {
 
 	@Override
 	public void onMapReady(GoogleMap map) {
+		googleMap = map;
 		LatLng loc = new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude());
 
-        map.setMyLocationEnabled(true);
-        map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 13));
-        
-        String locality = reverseGeocode(lastLocation);
-        lblMapTabTitle.append(locality);
-        
-        getData(locality);
-
-        System.out.println("onMapReady - img="+img);
-        map.addMarker(new MarkerOptions()
-                .title(locality)
-                //.icon(BitmapDescriptorFactory.fromBitmap(img))
-                .position(loc));
-		
+		googleMap.setMyLocationEnabled(true);
+		googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, 13));
 	}
 	
 	private String reverseGeocode(Location location) {
@@ -133,49 +125,65 @@ public class tabMap extends Fragment implements OnMapReadyCallback {
 
 		@Override
 		protected Weather doInBackground(String... params) {
-			Weather weather = new Weather();
 			String data = ((new WeatherHttpClient()).getWeatherData(params[0]));
 
 			try {
-				weather = JSONWeatherParser.getWeather(data);
+				Weather weather = JSONWeatherParser.getWeather(data);
 
 				// Let's retrieve the icon
-				weather.iconData = ( (new WeatherHttpClient()).getImage(weather.currentCondition.getIcon()));
-
+				weather.dailyWeather[0].iconData = ((new WeatherHttpClient()).getImage(weather.dailyWeather[0].getIcon()));
+				
+				return weather;
+				
 			} catch (JSONException e) {				
 				e.printStackTrace();
 			}
-			return weather;
+			
+			return null;
 		}
 		
+		@Override
 		protected void onPostExecute(Weather weather) {
 			super.onPostExecute(weather);
 			
-//			if (weather.iconData != null && weather.iconData.length > 0) {
-//				img = BitmapFactory.decodeByteArray(weather.iconData, 0, weather.iconData.length);
-//			}
-			
-			lblMapTabDetail.setText("Descripción: "+weather.currentCondition.getCondition()+"\n"+
-									  "Temperatura: "+weather.temperature.getTemp()+"ºC\n"+
-									  "\tMínima: "+weather.temperature.getMinTemp()+"ºC\n"+
-									  "\tMáxima: "+weather.temperature.getMaxTemp()+"ºC\n"+
-									  "Humedad: "+weather.currentCondition.getHumidity()+"%\n"+
-									  "Presión: "+weather.currentCondition.getPressure()+"mBar\n"+
-									  "Viento "+weather.wind.getSpeed()+"km/h\n"+
-									  "Precipitación: "+weather.rain.getAmmount()+"mm.");
+			if(weather != null) {
+				lblMapTabDetail.setText("Descripción: "+weather.dailyWeather[0].getCondition()+"\n"+
+										  "Temperatura: "+weather.dailyWeather[0].temperature.getTemp()+"ºC\n"+
+										  "\tMínima: "+weather.dailyWeather[0].temperature.getMinTemp()+"ºC\n"+
+										  "\tMáxima: "+weather.dailyWeather[0].temperature.getMaxTemp()+"ºC\n"+
+										  "Humedad: "+weather.dailyWeather[0].getHumidity()+"%\n"+
+										  "Presión: "+weather.dailyWeather[0].getPressure()+"mBar\n"+
+										  "Viento "+weather.dailyWeather[0].wind.getSpeed()+"km/h\n"+
+										  "Precipitación: "+weather.dailyWeather[0].rain.getAmmount()+"mm.");
+				
+		        if(weather.dailyWeather[0].iconData != null && googleMap != null) {
+		        	googleMap.addMarker(new MarkerOptions()
+				        //.title(locality)
+				        .icon(BitmapDescriptorFactory.fromBitmap(weather.dailyWeather[0].iconData))
+				        .anchor(0.5f, 0.5f)
+				        .position(new LatLng(lastLocation.getLatitude(), lastLocation.getLongitude())));
+		        }
+			} else {
+				Toast.makeText(contexto, "Error de conexión: No se ha podido establecer la conexión con el servidor.", Toast.LENGTH_LONG).show();
+			}
 		}
 	}
 	
-	@Override
-	public void onDestroy() {
-		Fragment fragment = getActivity().getFragmentManager().findFragmentById(R.id.mapFrame);
-		System.out.println("onDestroy - fragment="+fragment);
-		
-		if (fragment.isResumed()) {
-			getActivity().getFragmentManager().beginTransaction().remove(fragment).commit();
-		}
-		
-		super.onDestroy();
-	}
+//	@Override
+//	public void onDestroy() {
+////		Fragment fragment = getActivity().getFragmentManager().findFragmentById(R.id.mapFrame);
+////		Fragment fragment = getChildFragmentManager().findFragmentById(R.id.mapFrame);
+//		System.out.println("onDestroy - fragment="+fragment);
+//
+//		if (fragment != null && fragment.isResumed()) {
+//			getActivity().getFragmentManager().beginTransaction().remove(fragment).commit();
+//		}
+//		
+//		super.onDestroy();
+//	}
+	
+//	public void onDetach() {
+//		
+//	}
 	
 }
