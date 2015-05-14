@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
 
@@ -87,7 +88,13 @@ public class MainActivity extends Activity {
 			txtInterval.setEnabled(switchUpdates.isChecked());
 			txtInterval.setText(Long.toString(sharedPrefs.getLong("interval", 0)));
 			
-			
+			switchUpdates.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+				
+				@Override
+				public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+					txtInterval.setEnabled((isChecked) ? true : false);
+				}
+			});
 			
 			btnPrefsOK.setOnClickListener(new View.OnClickListener() {
 				
